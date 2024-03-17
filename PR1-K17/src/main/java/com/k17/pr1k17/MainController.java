@@ -38,6 +38,9 @@ public class MainController {
     @FXML
     private Label winnerLabel;
 
+    @FXML
+    private Button playAgain;
+
 
     @FXML
     private void initialize() {
@@ -170,7 +173,32 @@ public class MainController {
                 winner = "It's a draw!";
             }
             winnerLabel.setText(winner);
+            playAgain.setVisible(true);
         }
+    }
+
+    @FXML
+        // Play again button
+    void newGame() {
+        // Reset choice boxes, slider, labels
+        whoStarts.getSelectionModel().clearSelection();
+        algorithmChoice.getSelectionModel().clearSelection();
+        slider.setValue(slider.getMin());
+        totalPoints.setText("0");
+        bankPoints.setText("0");
+        numbers.setText("");
+        winnerLabel.setText("");
+        sliderValue.setText("");
+
+        // Make disabled things active again
+        algorithmChoice.setDisable(false);
+        whoStarts.setDisable(false);
+        slider.setDisable(false);
+        OkButton.setDisable(false);
+
+        // Hide text field, play again button
+        numberSum.setVisible(false);
+        playAgain.setVisible(false);
     }
 
 

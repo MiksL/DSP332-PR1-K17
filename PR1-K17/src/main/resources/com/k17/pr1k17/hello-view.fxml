@@ -25,7 +25,7 @@
             <Slider fx:id="slider" blockIncrement="1.0" layoutX="16.0" layoutY="318.0" majorTickUnit="5.0" max="25.0" min="15.0" minorTickCount="0" showTickLabels="true" value="1.0" />
             <Label fx:id="sliderValue" layoutX="48.0" layoutY="351.0" opacity="0.86" prefHeight="34.0" prefWidth="90.0" />
             <Button fx:id="OkButton" layoutX="50.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleOkButton" prefHeight="26.0" prefWidth="72.0" text="Ok" />
-            <Label fx:id="numbers" alignment="CENTER" layoutX="226.0" layoutY="243.0" prefHeight="58.0" prefWidth="574.0">
+            <Label fx:id="numbers" alignment="CENTER" layoutX="225.0" layoutY="189.0" prefHeight="58.0" prefWidth="574.0">
                 <font>
                     <Font size="40.0" />
                 </font>
@@ -53,12 +53,13 @@
                 </font>
             </Label>
             <Button fx:id="startButton" layoutX="26.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleStartButtonAction" prefHeight="26.0" prefWidth="118.0" text="Start " />
-            <TextField fx:id="numberSum" alignment="CENTER" layoutX="438.0" layoutY="351.0" promptText="Example: 5+6" visible="false" />
-            <Label fx:id="winnerLabel" alignment="CENTER" layoutX="275.0" layoutY="441.0" prefHeight="58.0" prefWidth="475.0">
+            <TextField fx:id="numberSum" alignment="CENTER" layoutX="437.0" layoutY="305.0" promptText="Example: 5+6" visible="false" />
+            <Label fx:id="winnerLabel" alignment="CENTER" layoutX="274.0" layoutY="373.0" prefHeight="58.0" prefWidth="475.0">
                 <font>
                     <Font name="System Bold" size="26.0" />
                 </font>
             </Label>
+            <Button fx:id="playAgain" layoutX="462.0" layoutY="449.0" mnemonicParsing="false" onAction="#newGame" prefHeight="34.0" prefWidth="100.0" text="Play again" visible="false" />
         </children>
     </AnchorPane>
 </VBox>
