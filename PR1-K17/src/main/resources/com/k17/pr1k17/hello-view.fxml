@@ -54,6 +54,11 @@
             </Label>
             <Button fx:id="startButton" layoutX="26.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleStartButtonAction" prefHeight="26.0" prefWidth="118.0" text="Start " />
             <TextField fx:id="numberSum" alignment="CENTER" layoutX="438.0" layoutY="351.0" promptText="Example: 5+6" visible="false" />
+            <Label fx:id="winnerLabel" alignment="CENTER" layoutX="275.0" layoutY="441.0" prefHeight="58.0" prefWidth="475.0">
+                <font>
+                    <Font name="System Bold" size="26.0" />
+                </font>
+            </Label>
         </children>
     </AnchorPane>
 </VBox>

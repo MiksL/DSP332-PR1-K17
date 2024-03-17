@@ -35,6 +35,9 @@ public class MainController {
     @FXML
     private TextField numberSum;
 
+    @FXML
+    private Label winnerLabel;
+
 
     @FXML
     private void initialize() {
@@ -137,10 +140,38 @@ public class MainController {
                 originalString = originalString.replaceFirst(concatenatedNumbers, "1");
             }
             numbers.setText(originalString);
+            checkWinner();
         }
         numberSum.clear();
     }
 
+    @FXML
+    // Method to check for the winner
+    private void checkWinner() {
+        String numbersLeft = numbers.getText();
+        if (numbersLeft.length() == 1) {
+            int bank = Integer.parseInt(bankPoints.getText());
+            int total = Integer.parseInt(totalPoints.getText());
+
+            String winner;
+            if (bank % 2 == 0 && total % 2 == 0) {
+                if (whoStarts.getValue().equals("Computer")) {
+                    winner = "Computer wins!";
+                } else {
+                    winner = "You win!";
+                }
+            } else if (bank % 2 != 0 && total % 2 != 0) {
+                if (whoStarts.getValue().equals("Computer")) {
+                    winner = "You win!";
+                } else {
+                    winner = "Computer wins!";
+                }
+            } else {
+                winner = "It's a draw!";
+            }
+            winnerLabel.setText(winner);
+        }
+    }
 
 
 
