@@ -1,21 +1,27 @@
 package com.k17.pr1k17;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
 import java.util.Random;
 
 
 public class MainController {
     @FXML
-    private Label numbers;
+    private GridPane numbers;
 
     @FXML
-    private ChoiceBox<String> algorithmChoice;
+    private ComboBox<String> algorithmChoice;
 
     @FXML
-    private ChoiceBox<String> whoStarts;
+    private ComboBox<String> whoStarts;
 
     @FXML
     private Slider slider;
@@ -41,16 +47,27 @@ public class MainController {
     @FXML
     private Button playAgain;
 
+    private int sum = 0;
+    private ToggleButton lastButton = null;
+
 
     @FXML
     private void initialize() {
         // Set values for choice boxes
         algorithmChoice.setItems(FXCollections.observableArrayList("Minimax", "Alpha-Beta"));
+        algorithmChoice.setValue("Minimax");
+
         whoStarts.setItems(FXCollections.observableArrayList("Computer", "Human"));
+        whoStarts.setValue("Computer");
+
+        numbers.setMinSize(400,100);
+        numbers.setAlignment(javafx.geometry.Pos.CENTER);
+        numbers.setHgap(0);
+        numbers.setStyle("-fx-font-size: 25px;");
 
         // Add a listener to the slider value property to update the label
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            sliderValue.setText("Slider Value: " + (int) slider.getValue());
+            sliderValue.setText((int) slider.getValue() + " Numbers");
         });
 
         numberSum.setOnKeyPressed(event -> {
@@ -64,6 +81,33 @@ public class MainController {
     @FXML
     // When Ok button is pressed, string of random numbers is displayed
     private void handleOkButton() {
+        numbers.getChildren().clear();
+
+        int count = (int) slider.getValue();
+
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            ToggleButton button = new ToggleButton(Integer.toString(random.nextInt(9)+1));
+            button.setId(Integer.toString(i)); // Set the button's ID to its value
+            button.setPadding(new Insets(5, 5, 5, 5));
+
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    if (lastButton == null || Math.abs(Integer.parseInt(lastButton.getId()) - Integer.parseInt(button.getId())) == 1) {
+                        sum += Integer.parseInt(button.getText());
+                        numberSum.setText(numberSum.getText() + button.getText() + "+");
+                        lastButton = button;
+                    } else
+                    {
+
+                    }
+                }
+            });
+
+            numbers.add(button, i, 0);
+        }
+
+        /*
         int count = (int) slider.getValue();
         StringBuilder randomNumbers = new StringBuilder();
         Random random = new Random();
@@ -71,6 +115,7 @@ public class MainController {
             randomNumbers.append(random.nextInt(9)+1);
         }
         numbers.setText(String.valueOf(randomNumbers));
+        */
     }
 
     @FXML
@@ -106,6 +151,7 @@ public class MainController {
             sum += Integer.parseInt(number.trim());
         }
 
+        /*
         String originalString = numbers.getText();
         String concatenatedNumbers = input.replace("+", "");
 
@@ -146,12 +192,14 @@ public class MainController {
             checkWinner();
         }
         numberSum.clear();
+
+         */
     }
 
     @FXML
     // Method to check for the winner
     private void checkWinner() {
-        String numbersLeft = numbers.getText();
+        String numbersLeft = "10"; //numbers.getText();
         if (numbersLeft.length() == 1) {
             int bank = Integer.parseInt(bankPoints.getText());
             int total = Integer.parseInt(totalPoints.getText());
@@ -181,12 +229,12 @@ public class MainController {
         // Play again button
     void newGame() {
         // Reset choice boxes, slider, labels
-        whoStarts.getSelectionModel().clearSelection();
-        algorithmChoice.getSelectionModel().clearSelection();
+        whoStarts.setValue("Computer");
+        algorithmChoice.setValue("Minimax");
         slider.setValue(slider.getMin());
         totalPoints.setText("0");
         bankPoints.setText("0");
-        numbers.setText("");
+        numbers.getChildren().clear();
         winnerLabel.setText("");
         sliderValue.setText("");
 
