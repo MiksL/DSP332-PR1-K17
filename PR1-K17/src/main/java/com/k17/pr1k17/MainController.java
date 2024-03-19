@@ -53,6 +53,7 @@ public class MainController {
 
     @FXML
     private void initialize() {
+
         // Set values for choice boxes
         algorithmChoice.setItems(FXCollections.observableArrayList("Minimax", "Alpha-Beta"));
         algorithmChoice.setValue("Minimax");
@@ -90,6 +91,7 @@ public class MainController {
             ToggleButton button = new ToggleButton(Integer.toString(random.nextInt(9)+1));
             button.setId(Integer.toString(i)); // Set the button's ID to its value
             button.setPadding(new Insets(5, 5, 5, 5));
+            button.getStyleClass().add("numberButton");
 
             button.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent event) {
@@ -106,16 +108,6 @@ public class MainController {
 
             numbers.add(button, i, 0);
         }
-
-        /*
-        int count = (int) slider.getValue();
-        StringBuilder randomNumbers = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < count; i++) {
-            randomNumbers.append(random.nextInt(9)+1);
-        }
-        numbers.setText(String.valueOf(randomNumbers));
-        */
     }
 
     @FXML
