@@ -149,7 +149,7 @@ public class MainController {
         slider.setDisable(true);
         OkButton.setDisable(true);
 
-        // TODO: Implement game logic, algorithm calls, etc.
+        // TODO: Implement game logic, algorithm calls, player-computer turns, etc.
     }
 
     @FXML
