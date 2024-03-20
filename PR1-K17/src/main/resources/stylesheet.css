@@ -2,4 +2,13 @@
 .numberButton
 {
     -fx-background-color: none;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 0, 0, 0;
+}
+
+.numberButton:selected
+{
+    -fx-background-color: skyblue;
+    -fx-text-fill: white;
 }
