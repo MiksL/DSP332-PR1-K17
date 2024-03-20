@@ -56,8 +56,12 @@
         </Label>
         <Button fx:id="startButton" layoutX="26.0" layoutY="471.0" mnemonicParsing="false"
                 onAction="#handleStartButtonAction" prefHeight="26.0" prefWidth="118.0" text="Start "/>
-        <TextField fx:id="numberSum" alignment="CENTER" layoutX="437.0" layoutY="305.0" promptText="Example: 5+6"
-                   visible="false"/>
+        <!-- TODO: Center the number sum preview and other fix positioning on other labels -->
+        <Label fx:id="numberSumPreview" alignment="CENTER" layoutX="437.0" layoutY="305.0">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
         <Label fx:id="winnerLabel" alignment="CENTER" layoutX="274.0" layoutY="373.0" prefHeight="58.0"
                prefWidth="475.0">
             <font>

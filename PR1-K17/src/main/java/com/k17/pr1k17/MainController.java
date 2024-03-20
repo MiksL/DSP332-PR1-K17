@@ -28,6 +28,9 @@ public class MainController {
     private Label sliderValue;
 
     @FXML
+    private Label numberSumPreview;
+
+    @FXML
     private Button OkButton;
 
     @FXML
@@ -35,9 +38,6 @@ public class MainController {
 
     @FXML
     private Label bankPoints;
-
-    @FXML
-    private TextField numberSum;
 
     @FXML
     private Label winnerLabel;
@@ -72,13 +72,6 @@ public class MainController {
         // Add a listener to the slider value property to update the label
         slider.valueProperty().addListener((observable, oldValue, newValue) ->
                 sliderValue.setText((int) slider.getValue() + " Numbers"));
-
-        numberSum.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                handleTextFieldInput();
-            }
-        });
-
     }
 
     @FXML
@@ -126,11 +119,26 @@ public class MainController {
                     currentNumber.setSelected(false);
                     totalNumbersSelected--;
                 }
+
+                // TODO: Optimize updateSumPreview() method and subsequent calls to it
+                updateSumPreview();
             });
 
             // Adds the button to the grid pane
             numbers.add(button, i, 0);
         }
+    }
+
+    @FXML
+    private void updateSumPreview()
+    {
+        sum = 0;
+        for (GameNumber gameNumber : gameNumbers) {
+            if (gameNumber.isSelected()) {
+                sum += gameNumber.getValue();
+            }
+        }
+        numberSumPreview.setText("Sum: " + sum);
     }
 
     @FXML
@@ -141,76 +149,7 @@ public class MainController {
         slider.setDisable(true);
         OkButton.setDisable(true);
 
-        // numberSum text field becomes visible
-        numberSum.setVisible(true);
-
         // TODO: Implement game logic, algorithm calls, etc.
-    }
-
-    @FXML
-    // Sum function
-    private void handleTextFieldInput() {
-        // Get the input from the text field
-        String input = numberSum.getText();
-
-        // Split the input string by '+' to extract individual numbers
-        String[] numbersToSum = input.split("\\+");
-
-        // Check if there's only one number entered
-        if (numbersToSum.length < 2) {
-            return;
-        }
-
-        int twoNumberSum = 0;
-
-        // Calculate the sum of the numbers
-        for (String number : numbersToSum) {
-            twoNumberSum += Integer.parseInt(number.trim());
-        }
-
-        /*
-        String originalString = numbers.getText();
-        String concatenatedNumbers = input.replace("+", "");
-
-        // Check if the entered numbers match the concatenated numbers
-        if (originalString.contains(concatenatedNumbers)) {
-
-            // If the sum is less than 7, increment total points by 1
-            if (sum > 7) {
-                int totalPointsValue = Integer.parseInt(totalPoints.getText());
-                totalPoints.setText(String.valueOf(totalPointsValue + 1));
-
-            } else if (sum < 7) {
-                // If the sum is less than 7, deduct 1 point from total points
-                int totalPointsValue = Integer.parseInt(totalPoints.getText());
-                if (totalPointsValue > 0) {
-                    totalPoints.setText(String.valueOf(totalPointsValue - 1));
-
-                } else {
-                    // Ensure total points cannot go negative
-                    totalPoints.setText("0");
-                }
-
-            } else {
-                // If the sum is equal to 7, add 1 point to bankPoints
-                int bankPointsValue = Integer.parseInt(bankPoints.getText());
-                bankPoints.setText(String.valueOf(bankPointsValue + 1));
-            }
-
-            // Update numbers string
-            if (sum < 7) {
-                originalString = originalString.replaceFirst(concatenatedNumbers, "3");
-            } else if (sum == 7) {
-                originalString = originalString.replaceFirst(concatenatedNumbers, "2");
-            } else {
-                originalString = originalString.replaceFirst(concatenatedNumbers, "1");
-            }
-            numbers.setText(originalString);
-            checkWinner();
-        }
-        numberSum.clear();
-
-         */
     }
 
     @FXML
@@ -268,8 +207,7 @@ public class MainController {
         slider.setDisable(false);
         OkButton.setDisable(false);
 
-        // Hide text field, play again button
-        numberSum.setVisible(false);
+        // Hide play again button
         playAgain.setVisible(false);
     }
 
