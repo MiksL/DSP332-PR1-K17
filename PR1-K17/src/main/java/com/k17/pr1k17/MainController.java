@@ -143,6 +143,8 @@ public class MainController {
 
         // numberSum text field becomes visible
         numberSum.setVisible(true);
+
+        // TODO: Implement game logic, algorithm calls, etc.
     }
 
     @FXML
@@ -214,29 +216,35 @@ public class MainController {
     @FXML
     // Method to check for the winner
     private void checkWinner() {
-        // TODO: Implement winner check logic
-        String numbersLeft = "10"; //numbers.getText();
-        if (numbersLeft.length() == 1) {
-            int bank = Integer.parseInt(bankPoints.getText());
-            int total = Integer.parseInt(totalPoints.getText());
+        // Get the numbers left
+        int numbersLeft = numbers.getChildren().size();
 
-            String winner;
-            if (bank % 2 == 0 && total % 2 == 0) {
-                if (whoStarts.getValue().equals("Computer")) {
-                    winner = "Computer wins!";
-                } else {
-                    winner = "You win!";
-                }
-            } else if (bank % 2 != 0 && total % 2 != 0) {
-                if (whoStarts.getValue().equals("Computer")) {
-                    winner = "You win!";
-                } else {
-                    winner = "Computer wins!";
-                }
-            } else {
-                winner = "It's a draw!";
+        if (numbersLeft == 1) // If only one number is left, then points are counted and a winner is declared
+        {
+            int finalBankPoints = Integer.parseInt(bankPoints.getText());
+            int finalTotalPoints = Integer.parseInt(totalPoints.getText());
+
+            String winnerMessage = "";
+
+            boolean isBankEven = finalBankPoints % 2 == 0;
+            boolean isTotalEven = finalTotalPoints % 2 == 0;
+            boolean isComputerStarting = whoStarts.getValue().equals("Computer");
+
+            // Check who is the winner
+            if(isBankEven && isTotalEven)
+            {
+                winnerMessage = isComputerStarting ? "Computer wins!" : "Human wins!";
             }
-            winnerLabel.setText(winner);
+            else if(!isBankEven && !isTotalEven)
+            {
+                winnerMessage = isComputerStarting ? "Human wins!" : "Computer wins!";
+            }
+            else
+            {
+                winnerMessage = "It's a draw!";
+            }
+
+            winnerLabel.setText(winnerMessage);
             playAgain.setVisible(true);
         }
     }
