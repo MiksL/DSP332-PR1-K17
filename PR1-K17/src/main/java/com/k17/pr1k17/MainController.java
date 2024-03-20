@@ -150,6 +150,11 @@ public class MainController {
         OkButton.setDisable(true);
 
         // TODO: Implement game logic, algorithm calls, player-computer turns, etc.
+
+        // Game data that will be passed to the algorithms:
+        // 1. Current game point tallies - totalPoints and bankPoints
+        // 2. Current board state - gameNumbers LinkedList
+
     }
 
     @FXML
