@@ -110,11 +110,8 @@ public class MainController {
                     boolean nextSelected = index < gameNumbers.size() - 1 && gameNumbers.get(index + 1).isSelected();
                     boolean prevSelected = index > 0 && gameNumbers.get(index - 1).isSelected();
 
-                    // Check if any number has been selected yet
-                    boolean anyNumberSelected = gameNumbers.stream().anyMatch(GameNumber::isSelected);
-
-                    // If less than 2 numbers (or none) are selected, select the current number
-                    if(totalNumbersSelected < 2 && (!anyNumberSelected || nextSelected || prevSelected))
+                    // If no numbers or only one number with a matching neighbour is selected, select the current number
+                    if(totalNumbersSelected == 0  || (totalNumbersSelected < 2 && (nextSelected || prevSelected)))
                     {
                         currentNumber.setSelected(true);
                         totalNumbersSelected++;
