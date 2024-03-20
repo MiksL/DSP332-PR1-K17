@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 
@@ -50,6 +50,12 @@ public class MainController {
     private int sum = 0;
     private ToggleButton lastButton = null;
 
+    // A Linked list that stores the game numbers using the GameNumber class
+    private LinkedList<GameNumber> gameNumbers = new LinkedList<GameNumber>();
+
+    // Short that stores if less than 2 numbers are selected
+    private short totalNumbersSelected = 0;
+
 
     @FXML
     private void initialize() {
@@ -88,22 +94,21 @@ public class MainController {
 
         Random random = new Random();
         for (int i = 0; i < count; i++) {
-            ToggleButton button = new ToggleButton(Integer.toString(random.nextInt(9)+1));
+            short currentlyGeneratedNumber = (short) (random.nextInt(9) + 1);
+
+            gameNumbers.add(new GameNumber(currentlyGeneratedNumber));
+
+            ToggleButton button = new ToggleButton(Integer.toString(currentlyGeneratedNumber));
             button.setId(Integer.toString(i)); // Set the button's ID to its value
             button.setPadding(new Insets(5, 5, 5, 5));
             button.getStyleClass().add("numberButton");
 
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                    if (lastButton == null || Math.abs(Integer.parseInt(lastButton.getId()) - Integer.parseInt(button.getId())) == 1) {
-                        sum += Integer.parseInt(button.getText());
-                        numberSum.setText(numberSum.getText() + button.getText() + "+");
-                        lastButton = button;
-                    } else
-                    {
-
-                    }
-                }
+            button.selectedProperty().addListener((observable, wasSelected, isSelected) -> {
+                //TODO: Implement logic for button selection
+                // 1. Check if button is selected or deselected
+                // 2. Check if any other button has been selected
+                // 3. Check for selected buttons next to each other (using gameNumber.isSelected())
+                // 4. Prevent more than 2 buttons from being selected at the same time (using totalNumbersSelected)
             });
 
             numbers.add(button, i, 0);
