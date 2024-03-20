@@ -1,7 +1,5 @@
 package com.k17.pr1k17;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -48,10 +46,9 @@ public class MainController {
     private Button playAgain;
 
     private int sum = 0;
-    private ToggleButton lastButton = null;
 
     // A Linked list that stores the game numbers using the GameNumber class
-    private LinkedList<GameNumber> gameNumbers = new LinkedList<GameNumber>();
+    private LinkedList<GameNumber> gameNumbers = new LinkedList<>();
 
     // Short that stores if less than 2 numbers are selected
     private short totalNumbersSelected = 0;
@@ -73,9 +70,8 @@ public class MainController {
         numbers.setStyle("-fx-font-size: 25px;");
 
         // Add a listener to the slider value property to update the label
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            sliderValue.setText((int) slider.getValue() + " Numbers");
-        });
+        slider.valueProperty().addListener((observable, oldValue, newValue) ->
+                sliderValue.setText((int) slider.getValue() + " Numbers"));
 
         numberSum.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -104,13 +100,38 @@ public class MainController {
             button.getStyleClass().add("numberButton");
 
             button.selectedProperty().addListener((observable, wasSelected, isSelected) -> {
-                //TODO: Implement logic for button selection
-                // 1. Check if button is selected or deselected
-                // 2. Check if any other button has been selected
-                // 3. Check for selected buttons next to each other (using gameNumber.isSelected())
-                // 4. Prevent more than 2 buttons from being selected at the same time (using totalNumbersSelected)
+                // Get the object from the gameNumbers list using the ID of the button
+                int index = Integer.parseInt(button.getId());
+                GameNumber currentNumber = gameNumbers.get(index);
+
+                // Check if the button is selected
+                if (isSelected) {
+                    // Check if any neighbouring number is valid and selected
+                    boolean nextSelected = index < gameNumbers.size() - 1 && gameNumbers.get(index + 1).isSelected();
+                    boolean prevSelected = index > 0 && gameNumbers.get(index - 1).isSelected();
+
+                    // Check if any number has been selected yet
+                    boolean anyNumberSelected = gameNumbers.stream().anyMatch(GameNumber::isSelected);
+
+                    // If less than 2 numbers (or none) are selected, select the current number
+                    if(totalNumbersSelected < 2 && (!anyNumberSelected || nextSelected || prevSelected))
+                    {
+                        currentNumber.setSelected(true);
+                        totalNumbersSelected++;
+                    }
+                    else // If no valid number is selected, deselect the current number
+                    {
+                        button.setSelected(false);
+                    }
+                } else if (currentNumber.isSelected())
+                {
+                    // If the current number isSelected(), unselect it and decrement totalNumbersSelected
+                    currentNumber.setSelected(false);
+                    totalNumbersSelected--;
+                }
             });
 
+            // Adds the button to the grid pane
             numbers.add(button, i, 0);
         }
     }
@@ -141,11 +162,11 @@ public class MainController {
             return;
         }
 
-        int sum = 0;
+        int twoNumberSum = 0;
 
         // Calculate the sum of the numbers
         for (String number : numbersToSum) {
-            sum += Integer.parseInt(number.trim());
+            twoNumberSum += Integer.parseInt(number.trim());
         }
 
         /*
@@ -196,6 +217,7 @@ public class MainController {
     @FXML
     // Method to check for the winner
     private void checkWinner() {
+        // TODO: Implement winner check logic
         String numbersLeft = "10"; //numbers.getText();
         if (numbersLeft.length() == 1) {
             int bank = Integer.parseInt(bankPoints.getText());
