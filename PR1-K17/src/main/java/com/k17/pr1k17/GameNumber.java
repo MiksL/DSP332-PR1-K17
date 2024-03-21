@@ -10,7 +10,7 @@ public class GameNumber
         this.isSelected = false;
     }
 
-    public int getValue() {
+    public short getValue() {
         return value;
     }
 

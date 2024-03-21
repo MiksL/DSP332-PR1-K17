@@ -53,6 +53,8 @@ public class MainController {
     // Short that stores if less than 2 numbers are selected
     private short totalNumbersSelected = 0;
 
+    private boolean playerStarts; // true if player starts -> player is maximizer, false if computer starts -> computer is maximizer
+
 
     @FXML
     private void initialize() {
@@ -146,10 +148,19 @@ public class MainController {
     private void handleStartButtonAction() {
         algorithmChoice.setDisable(true);
         whoStarts.setDisable(true);
+        playerStarts = whoStarts.getValue().equals("Human"); // This will be passed to know who is the maximizer
         slider.setDisable(true);
         OkButton.setDisable(true);
 
-        // TODO: Implement game logic, algorithm calls, etc.
+        // TODO: Implement game logic, algorithm calls, player-computer turns, etc.
+
+        // First turn GameState set
+        GameState gameState = new GameState(Short.parseShort(totalPoints.getText()), Short.parseShort(bankPoints.getText()), gameNumbers);
+
+        // Game data that will be passed to the algorithms:
+        // 1. Current game point tallies - totalPoints and bankPoints
+        // 2. Current board state - gameNumbers LinkedList
+
     }
 
     @FXML
@@ -160,8 +171,8 @@ public class MainController {
 
         if (numbersLeft == 1) // If only one number is left, then points are counted and a winner is declared
         {
-            int finalBankPoints = Integer.parseInt(bankPoints.getText());
-            int finalTotalPoints = Integer.parseInt(totalPoints.getText());
+            short finalBankPoints = Short.parseShort(bankPoints.getText());
+            short finalTotalPoints = Short.parseShort(totalPoints.getText());
 
             String winnerMessage = "";
 
@@ -186,6 +197,10 @@ public class MainController {
             winnerLabel.setText(winnerMessage);
             playAgain.setVisible(true);
         }
+    }
+
+    public boolean isPlayerStarting() {
+        return playerStarts;
     }
 
     @FXML
