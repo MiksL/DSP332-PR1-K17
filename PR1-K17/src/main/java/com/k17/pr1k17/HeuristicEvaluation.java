@@ -11,10 +11,8 @@ public class HeuristicEvaluation {
     // 2. Current board state - gameNumbers LinkedList - MainController.java
     // Algorithm calls HeuristicEvaluation.java for heuristic evaluation, same evaluation function for both algorithms
 
-
     // Map will contain the index of the first number to be summed and the heuristic score of the numbers to be summed
-    public Map<Short,Short> evaluate(GameState gameState)
-    {
+    public Map<Short,Short> evaluate(GameState gameState) {
         LinkedList<GameNumber> gameNumbers = gameState.gameNumbers();
         short totalPoints = gameState.totalPoints();
         short bankPoints = gameState.bankPoints();
@@ -28,12 +26,10 @@ public class HeuristicEvaluation {
         // First player is the maximizer -> attempting to reach an even number
         // Second player is the minimizer -> attempting to reach an odd number
 
-        for(GameNumber gameNumber : gameNumbers)
-        {
+        for (GameNumber gameNumber : gameNumbers) {
             short number = gameNumber.getValue();
         }
 
         return points;
     }
-
 }

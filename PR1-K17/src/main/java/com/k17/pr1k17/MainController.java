@@ -156,7 +156,7 @@ public class MainController {
 
         // First turn GameState set
         GameState gameState = new GameState(Short.parseShort(totalPoints.getText()), Short.parseShort(bankPoints.getText()), gameNumbers);
-
+        
         // Game data that will be passed to the algorithms:
         // 1. Current game point tallies - totalPoints and bankPoints
         // 2. Current board state - gameNumbers LinkedList
