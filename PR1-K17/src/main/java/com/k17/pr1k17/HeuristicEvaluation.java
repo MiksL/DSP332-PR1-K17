@@ -12,7 +12,7 @@ public class HeuristicEvaluation {
     // Algorithm calls HeuristicEvaluation.java for heuristic evaluation, same evaluation function for both algorithms
 
     // Map will contain the index of the first number to be summed and the heuristic score of the numbers to be summed
-    public Map<Short,Short> evaluate(GameState gameState) {
+    public Map<Short,Short> evaluate(GameState gameState) { 
         LinkedList<GameNumber> gameNumbers = gameState.gameNumbers();
         short totalPoints = gameState.totalPoints();
         short bankPoints = gameState.bankPoints();

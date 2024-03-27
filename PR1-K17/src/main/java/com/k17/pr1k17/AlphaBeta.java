@@ -7,7 +7,4 @@ public class AlphaBeta {
     // 2. Current board state - gameNumbers LinkedList - MainController.java
     // 3. Who is the minimizer and who is the maximizer - MainController -> WhoStarts
     // Algorithm calls HeuristicEvaluation.java for heuristic evaluation, same evaluation function for both algorithms
-
-    // Delta encoding(?) for game states - store much larger tree in memory
-    // Cons: Need more processing power to decode the tree
 }

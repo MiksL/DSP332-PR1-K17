@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -156,10 +157,12 @@ public class MainController {
 
         // First turn GameState set
         GameState gameState = new GameState(Short.parseShort(totalPoints.getText()), Short.parseShort(bankPoints.getText()), gameNumbers);
-        
-        // Game data that will be passed to the algorithms:
-        // 1. Current game point tallies - totalPoints and bankPoints
-        // 2. Current board state - gameNumbers LinkedList
+
+        TreeGenerator treeGenerator = new TreeGenerator(gameState);
+
+        // Call generateTree() method to generate the game tree
+        List<TreeNode> gameTree = treeGenerator.generateTree(gameState, 3);
+        // Generate tree only generates initial children for now but can be used for heuristic evaluation
 
     }
 
