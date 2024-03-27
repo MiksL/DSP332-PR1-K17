@@ -7,11 +7,11 @@ import java.util.List;
  * Stores the total points, bank points, and the first and second summed values and the first index
  */
 public final class TreeNode {
-    private final short totalPoints;
-    private final short bankPoints;
-    private final short firstIndex;
-    private final short firstSummedValue;
-    private final short secondSummedValue;
+    private final byte totalPoints;
+    private final byte bankPoints;
+    private final byte firstIndex;
+    private final byte firstSummedValue;
+    private final byte secondSummedValue;
     private List<TreeNode> children; // List of children nodes - takes up no memory if not initialized
 
     /**
@@ -21,7 +21,7 @@ public final class TreeNode {
      * @param firstSummedValue the first summed value
      * @param secondSummedValue the second summed value
      */
-    public TreeNode(short totalPoints, short bankPoints, short firstIndex, short firstSummedValue, short secondSummedValue)
+    public TreeNode(byte totalPoints, byte bankPoints, byte firstIndex, byte firstSummedValue, byte secondSummedValue)
     {
         this.totalPoints = totalPoints;
         this.bankPoints = bankPoints;
@@ -30,23 +30,23 @@ public final class TreeNode {
         this.secondSummedValue = secondSummedValue;
     }
 
-    public short getTotalPoints() {
+    public byte getTotalPoints() {
         return totalPoints;
     }
 
-    public short getBankPoints() {
+    public byte getBankPoints() {
         return bankPoints;
     }
 
-    public short getFirstIndex() {
+    public byte getFirstIndex() {
         return firstIndex;
     }
 
-    public short getFirstSummedValue() {
+    public byte getFirstSummedValue() {
         return firstSummedValue;
     }
 
-    public short getSecondSummedValue() {
+    public byte getSecondSummedValue() {
         return secondSummedValue;
     }
 

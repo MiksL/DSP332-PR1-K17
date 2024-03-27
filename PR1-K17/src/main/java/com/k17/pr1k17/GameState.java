@@ -10,5 +10,5 @@ import java.util.LinkedList;
  * @param bankPoints
  * @param gameNumbers
  */
-public record GameState(short totalPoints, short bankPoints, LinkedList<GameNumber> gameNumbers) {
+public record GameState(byte totalPoints, byte bankPoints, LinkedList<GameNumber> gameNumbers) {
 }

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class TreeGenerator
 {
-    private short maximumDepth = 3;
+    private byte maximumDepth = 3;
     private final GameState initialGameState;
 
     /**
@@ -47,7 +47,7 @@ public class TreeGenerator
      * @param initialState the initial game state at a given move that the tree will be generated from
      * @param maximumDepth the maximum depth of the tree
      */
-    public TreeGenerator(GameState initialState, short maximumDepth)
+    public TreeGenerator(GameState initialState, byte maximumDepth)
     {
         this.initialGameState = initialState;
         this.maximumDepth = maximumDepth;
@@ -65,11 +65,10 @@ public class TreeGenerator
      *
      * Recursively generates the game tree up to the specified maximum depth given the initial game state
      * @param state the initial game state
-     * @param depth the maximum depth of the tree
       */
-    public List<TreeNode> generateTree(GameState state, int depth) {
+    public List<TreeNode> generateTree(GameState state) {
         // Generate the initial children
-        return generateInitialChildren(state, depth);
+        return generateInitialChildren(state, maximumDepth);
 
         // TODO: Recursive method calling to generate children to the given depth while applying GameState changes
     }
@@ -80,18 +79,18 @@ public class TreeGenerator
      * @param depth
      * @return a list of the initial children of the game tree - always n-1 children where n is the number of game numbers
      */
-    private List<TreeNode> generateInitialChildren(GameState state, int depth) {
+    private List<TreeNode> generateInitialChildren(GameState state, short depth) {
         List<TreeNode> nextStates = new ArrayList<>();
         LinkedList<GameNumber> gameNumbers = state.gameNumbers();
 
         for (int i = 0; i < gameNumbers.size() - 1; i++) {
-            short firstSummedValue = gameNumbers.get(i).getValue();
-            short secondSummedValue = gameNumbers.get(i + 1).getValue();
+            byte firstSummedValue = gameNumbers.get(i).getValue();
+            byte secondSummedValue = gameNumbers.get(i + 1).getValue();
 
             // In the initial states, the total points and bank points change based on the first two number sum
-            Pair<Short, Short> points = calculatePoints(firstSummedValue, secondSummedValue, state.totalPoints(), state.bankPoints());
+            Pair<Byte, Byte> points = calculatePoints(firstSummedValue, secondSummedValue, state.totalPoints(), state.bankPoints());
 
-            TreeNode nextState = new TreeNode(points.getKey(), points.getValue(), (short)i, firstSummedValue, secondSummedValue);
+            TreeNode nextState = new TreeNode(points.getKey(), points.getValue(), (byte)i, firstSummedValue, secondSummedValue);
             nextStates.add(nextState);
         }
 
@@ -101,10 +100,9 @@ public class TreeGenerator
     /**
      * Generates descendants of the initial children based on the changes in the game state
      * @param state
-     * @param depth
      * @return a list of the children of the game tree
      */
-    private List<TreeNode> generateAllChildren(GameState state, int depth) {
+    private List<TreeNode> generateAllChildren(GameState state) {
         // TODO: Implement generateAllChildren method
         /* Similar to generateInitialChildren, but it also takes into account the changes in the game state from the parent node
         And applies them to the current GameState - therefore the children will be correctly generated
@@ -122,8 +120,8 @@ public class TreeGenerator
      * @param bankPoints
      * @return
      */
-    private Pair<Short, Short> calculatePoints(short firstSummedValue, short secondSummedValue, short totalPoints, short bankPoints) {
-        short sum = (short) (firstSummedValue + secondSummedValue);
+    private Pair<Byte, Byte> calculatePoints(byte firstSummedValue, byte secondSummedValue, byte totalPoints, byte bankPoints) {
+        byte sum = (byte) (firstSummedValue + secondSummedValue);
         if (sum > 7) {
             totalPoints += 1;
         } else if (sum < 7) {

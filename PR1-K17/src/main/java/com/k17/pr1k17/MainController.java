@@ -89,7 +89,7 @@ public class MainController {
 
         Random random = new Random();
         for (int i = 0; i < count; i++) {
-            short currentlyGeneratedNumber = (short) (random.nextInt(9) + 1);
+            byte currentlyGeneratedNumber = (byte) (random.nextInt(9) + 1);
 
             gameNumbers.add(new GameNumber(currentlyGeneratedNumber));
 
@@ -159,12 +159,12 @@ public class MainController {
         // TODO: Implement game logic, algorithm calls, player-computer turns, etc.
 
         // First turn GameState set
-        GameState gameState = new GameState(Short.parseShort(totalPoints.getText()), Short.parseShort(bankPoints.getText()), gameNumbers);
+        GameState gameState = new GameState(Byte.parseByte(totalPoints.getText()), Byte.parseByte(bankPoints.getText()), gameNumbers);
 
         TreeGenerator treeGenerator = new TreeGenerator(gameState);
 
         // Call generateTree() method to generate the game tree
-        List<TreeNode> gameTree = treeGenerator.generateTree(gameState, 3);
+        List<TreeNode> gameTree = treeGenerator.generateTree(gameState);
         // Generate tree only generates initial children for now but can be used for heuristic evaluation
 
     }
