@@ -81,6 +81,9 @@ public class MainController {
     // When Ok button is pressed, string of random numbers is displayed
     private void handleOkButton() {
         numbers.getChildren().clear();
+        gameNumbers.clear(); // Clear the list of game numbers
+        totalNumbersSelected = 0; // Reset the count of total numbers selected
+        numberSumPreview.setText(""); // Clear the sum field
 
         int count = (int) slider.getValue();
 
